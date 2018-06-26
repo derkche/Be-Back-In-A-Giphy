@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var topics = ["anime", "gaming", "memes", "nature", "movies"];
+    var topics = ["gaming", "memes", "nature", "movies", "sports"];
 
     // 
           // Function for displaying movie data
@@ -43,8 +43,8 @@ $(document).ready(function() {
             method: "GET"
           }).then(function(response) {  
             var results = response.data;
- 
             for (var i = 0; i < results.length; i++) {
+                
                 var gifPayload = $("<div class='item'>");
             
                 var gifRating = results[i].rating;
@@ -58,7 +58,6 @@ $(document).ready(function() {
             
                 $("#images").prepend(gifPayload);
             }
-
         });
 
     }
@@ -67,35 +66,6 @@ $(document).ready(function() {
         event.preventDefault();
         getGifs();
     })
-
-    function grabTits() {
-    
-        // var gif = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=joj9EAW4idOiU1fBOhNjjIj9hCxv1L5B&tag=boobs"
-      
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response) {
-        
-            var imageUrl = response.data.image_original_url;
-            var boobImage = $("<img>");
-            boobImage.attr("src", imageUrl);
-            boobImage.attr("alt", "image");
-            boobImage.attr("style", "width:300px; max-height:300px;");
-
-            $("#images").prepend(boobImage);
-
-        });
-
-    };
-
-    $("#tits").on("click", function(){
-
-        grabTits();
-        console.log("titgrabbed");
-
-    });
 
     $("#submitButton").on("click", function()
     {
