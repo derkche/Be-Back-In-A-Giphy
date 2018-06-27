@@ -13,23 +13,29 @@
     <title>Be Back in a Giphy</title>
 </head>
 
-<form>
-    
-    <div id="button-group"></div>
+<body>
 
-    <div class="form-group">
-      <label for="userSearchTerms">Search</label>
-      <input type="search" class="form-control" id="userSearchTerms" placeholder="What do you want to see">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Be Back in a Giphy!</h1>
+      <p class="lead">Life is better with gifs</p>
     </div>
+</div>
+
+<form>
+    <div class="form-group text-center row">
+      <input type="search" class="form-control col-sm-6" id="userSearchTerms" placeholder="What do you want to see">
+      <div class="col-sm-6" id="button-group"></div>
+    </div>
+
     <button type="submit" class="btn btn-outline-secondary" id="submitButton">Submit</button>
-    <!-- <button type="submit" class="btn btn-outline-warning" id="testButton">Test Button</button> -->
-    
 </form>
 
 <div id="images">Pictures should go here</div>
 
-<body>
 
+<!-- BootStrap's JS script, just in case -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </body>
 
 </html>

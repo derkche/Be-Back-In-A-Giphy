@@ -2,33 +2,20 @@ $(document).ready(function() {
 
     var topics = ["gaming", "memes", "nature", "movies", "sports"];
 
-    // 
-          // Function for displaying movie data
-          function generateButtons() {
+    function generateButtons() {
+        $("#button-group").empty();
+        for (var i = 0; i < topics.length; i++) {
 
-            // Deletes the topics prior to adding new topics
-            // (this is necessary otherwise you will have repeat buttons)
-            $("#button-group").empty();
-            // Loops through the array of topics
-            for (var i = 0; i < topics.length; i++) {
-    
-              // Then dynamicaly generates buttons for each movie in the array
-              // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-              var a = $("<button>");
-              // Adds a class of movie to our button
-              a.addClass("btn btn-outline-secondary");
-              // Added a data-attribute
-              a.attr("data-name", topics[i]);
-              // Provided the initial button text
-              a.text(topics[i]);
-              // Added the button to the buttons-view div
-              $("#button-group").append(a);
-            }
-          }
-    // 
-    
+            var a = $("<button>");
+            a.addClass("btn btn-outline-secondary topicButtons");
+            a.attr("data-name", topics[i]);
+            a.text(topics[i]);
 
-          //getGifs must be called by a topic button
+            $("#button-group").append(a);
+        }
+    }
+
+    //getGifs must be called by a topic button
     function getGifs () {
         event.preventDefault();
 
@@ -41,22 +28,26 @@ $(document).ready(function() {
         $.ajax({
             url: queryURL,
             method: "GET"
-          }).then(function(response) {  
+        }).then(function(response) {  
             var results = response.data;
             for (var i = 0; i < results.length; i++) {
                 
-                var gifPayload = $("<div class='item'>");
-            
-                var gifRating = results[i].rating;
-                var displayRating = $("<p>").text("Rating: " + gifRating);
-            
+                var gifCard = $("<div class='gif-card'>");
+
                 var gifImage = $("<img>");
-                gifImage.attr("src", results[i].images.fixed_height.url);
-            
-                gifPayload.prepend(displayRating);
-                gifPayload.prepend(gifImage);
-            
-                $("#images").prepend(gifPayload);
+                gifImage.attr("src", results[i].images.original_still.url);
+                gifImage.attr("data-animate", results[i].images.original.url);
+                gifImage.attr("data-still", results[i].images.original_still.url);
+                gifImage.attr("data-state", "still");
+                gifImage.attr("class", "gif");
+
+                var rating = results[i].rating;
+                var gifRating = $("<p>").text("Rating: " + rating)
+
+                gifCard.append(gifImage);
+                gifCard.append(gifRating);
+
+                $("#images").prepend(gifCard);
             }
         });
 
@@ -77,7 +68,23 @@ $(document).ready(function() {
         generateButtons();
     });
 
-    $(document).on("click", ".btn", getGifs);
+    $(document).on("click", ".gif", function() {
+        
+        var state = $(this).attr("data-state");
+        console.log(state);
+  
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        } 
+        else if (state === "animate"){
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        };
+  
+    });
+
+    $(document).on("click", ".topicButtons", getGifs);
 
     generateButtons();
 
