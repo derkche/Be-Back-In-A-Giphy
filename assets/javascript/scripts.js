@@ -21,10 +21,12 @@ $(document).ready(function() {
 
         var searchingFor = $(this).attr("data-name");
         console.log(searchingFor);
-        
+
+        for (var i = 0; i < 10; i++) {
+            
         var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=joj9EAW4idOiU1fBOhNjjIj9hCxv1L5B&tag="+searchingFor;
         console.log(queryURL);
-        for (var i = 0; i < 10; i++) {
+        
         $.ajax({
             url: queryURL,
             method: "GET"
