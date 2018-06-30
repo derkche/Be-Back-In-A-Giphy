@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var topics = ["funny", "memes", "cute","gaming", "movies", "sports"];
+    var topics = ["funny", "memes", "cute", "games", "movies", "sports"];
 
     function generateButtons() {
         $("#button-group").empty();
